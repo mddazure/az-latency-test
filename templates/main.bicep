@@ -1,4 +1,4 @@
-param rgName string = 'az-latency-${utcNow()}'
+param rgName string = 'az-latency'
 //param rgName string = 'az-latency-2'
 param watcherRG string = 'NetworkWatcherRG'
 param location string = 'westeurope'
@@ -15,31 +15,31 @@ var bastionVnetId = bastionvnet.outputs.vnetid
 var bastionSubnetid = bastionvnet.outputs.subnet1id
 
 param vnet1Name string = 'vnet1'
-param vnet1Range string = '172.16.1.0/24'
+param vnet1Range string = '172.16.0.0/16'
 param vnet1Subnet1Name string = 'subnet1'
-param vnet1Subnet1Range string = '172.16.1.0/26'
+param vnet1Subnet1Range string = '172.16.1.0/24'
 param vnet1Subnet2Name string = 'subnet2'
-param vnet1Subnet2Range string = '172.16.1.64/26'
+param vnet1Subnet2Range string = '172.16.2.0/24'
 param vnet1Subnet3Name string = 'subnet3'
-param vnet1Subnet3Range string = '172.16.1.128/26'
+param vnet1Subnet3Range string = '172.16.3.0/24'
 var vnet1Id = vnet1.outputs.vnetid
 var vnet1Subnet1id = vnet1.outputs.subnet1id
 var vnet1Subnet2id = vnet1.outputs.subnet2id
 var vnet1Subnet3id = vnet1.outputs.subnet3id
 
-param vnet2Name string = 'vnet2'
-param vnet2Range string = '172.16.2.0/24'
+/*param vnet2Name string = 'vnet2'
+param vnet2Range string = '172.17.0.0/16'
 param vnet2Subnet1Name string = 'subnet1'
-param vnet2Subnet1Range string = '172.16.2.0/26'
+param vnet2Subnet1Range string = '172.17.1.0/24'
 param vnet2Subnet2Name string = 'subnet2'
-param vnet2Subnet2Range string = '172.16.2.64/26'
+param vnet2Subnet2Range string = '172.17.2.0/24'
 param vnet2Subnet3Name string = 'subnet3'
-param vnet2Subnet3Range string = '172.16.2.128/26'
+param vnet2Subnet3Range string = '172.17.3.0/24'
 var vnet2Id = vnet2.outputs.vnetid
 var vnet2Subnet1id = vnet2.outputs.subnet1id
 var vnet2Subnet2id = vnet2.outputs.subnet2id
 var vnet2Subnet3id = vnet2.outputs.subnet3id
-
+*/
 var vm1name = vm1.outputs.vmname
 var vm2name = vm2.outputs.vmname
 var vm3name = vm3.outputs.vmname
@@ -56,7 +56,7 @@ targetScope = 'subscription'
 
 param adminUsername string = 'AzureAdmin'
 
-param adminPassword string = 'AZlatency-2022'
+param adminPassword string = 'AZlatency-2024'
 
 resource azrg 'Microsoft.Resources/resourceGroups@2021-04-01' = {
   name: rgName
@@ -79,7 +79,7 @@ module vnet1 'vnet.bicep' = {
   }
 }
 
-module vnet2 'vnet.bicep' = {
+/*module vnet2 'vnet.bicep' = {
   name: 'vnet2'
   scope: azrg
   params: {
@@ -93,7 +93,7 @@ module vnet2 'vnet.bicep' = {
     subnet3name: vnet2Subnet3Name
     subnet3range: vnet2Subnet3Range
   }
-}
+}*/
 
 module bastionvnet 'vnet.bicep' = {
   name: 'bastionvnet'
@@ -182,7 +182,7 @@ module iisextvm3 'iisvmext.bicep' = {
   }
 }
 
-/*module bastion 'bastion.bicep' = {
+module bastion 'bastion.bicep' = {
   scope: azrg
   name: 'bastion'
   dependsOn: [
@@ -193,7 +193,7 @@ module iisextvm3 'iisvmext.bicep' = {
     location: location
   }
 }
-*/
+
 
 module peerb1 'vnetpeering.bicep' ={
   scope: azrg
@@ -225,7 +225,7 @@ module peer1b 'vnetpeering.bicep' ={
   }
 }
 
-module peerb2 'vnetpeering.bicep' ={
+/*module peerb2 'vnetpeering.bicep' ={
   scope: azrg
   name: 'peerb2'
   dependsOn: [
@@ -253,6 +253,7 @@ module peer2b 'vnetpeering.bicep' ={
     vnet1id: bastionVnetId
   }
 }
+*/
 
 module conmon 'conmon.bicep' = {
 scope: resourceGroup(watcherRG)

@@ -17,7 +17,6 @@ resource conmon 'Microsoft.Network/networkWatchers/connectionMonitors@2022-07-01
   name: 'conmon-${mainRG}'
   parent: nwwatcher
   location: location
-  //parent: nwwatcher
   properties: {
     endpoints: [
       {
