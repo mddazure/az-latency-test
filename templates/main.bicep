@@ -4,13 +4,13 @@ param watcherRG string = 'NetworkWatcherRG'
 param location string = 'westeurope'
 
 param bastionVnetName string = 'bastionvnet'
-param bastionVnetRange string = '172.16.100.0/24'
+param bastionVnetRange string = '172.18.0.0/16'
 param bastionSubnetName string = 'AzureBastionSubnet'
-param bastionSubnetRange string = '172.16.100.0/25'
+param bastionSubnetRange string = '172.18.100.0/24'
 param bastionSubnet2Name string = 'subnet2'
-param bastionSubnet2Range string = '172.16.100.128/27'
+param bastionSubnet2Range string = '172.18.101.128/24'
 param bastionSubnet3Name string = 'subnet3'
-param bastionSubnet3Range string = '172.16.100.160/27'
+param bastionSubnet3Range string = '172.18.102.160/24'
 var bastionVnetId = bastionvnet.outputs.vnetid
 var bastionSubnetid = bastionvnet.outputs.subnet1id
 
