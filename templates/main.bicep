@@ -8,9 +8,9 @@ param bastionVnetRange string = '172.18.0.0/16'
 param bastionSubnetName string = 'AzureBastionSubnet'
 param bastionSubnetRange string = '172.18.100.0/24'
 param bastionSubnet2Name string = 'subnet2'
-param bastionSubnet2Range string = '172.18.101.128/24'
+param bastionSubnet2Range string = '172.18.101.0/24'
 param bastionSubnet3Name string = 'subnet3'
-param bastionSubnet3Range string = '172.18.102.160/24'
+param bastionSubnet3Range string = '172.18.102.0/24'
 var bastionVnetId = bastionvnet.outputs.vnetid
 var bastionSubnetid = bastionvnet.outputs.subnet1id
 
