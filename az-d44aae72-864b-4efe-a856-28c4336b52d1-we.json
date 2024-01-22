@@ -1,0 +1,38 @@
+[
+{
+    "availabilityZoneMappings": [
+      {
+        "logicalZone": "1",
+        "physicalZone": "westeurope-az3"
+      },
+      {
+        "logicalZone": "2",
+        "physicalZone": "westeurope-az2"
+      },
+      {
+        "logicalZone": "3",
+        "physicalZone": "westeurope-az1"
+      }
+    ],
+    "displayName": "West Europe",
+    "id": "/subscriptions/d44aae72-864b-4efe-a856-28c4336b52d1/locations/westeurope",
+    "metadata": {
+      "geography": "Europe",
+      "geographyGroup": "Europe",
+      "latitude": "52.3667",
+      "longitude": "4.9",
+      "pairedRegion": [
+        {
+          "id": "/subscriptions/d44aae72-864b-4efe-a856-28c4336b52d1/locations/northeurope",
+          "name": "northeurope"
+        }
+      ],
+      "physicalLocation": "Netherlands",
+      "regionCategory": "Recommended",
+      "regionType": "Physical"
+    },
+    "name": "westeurope",
+    "regionalDisplayName": "(Europe) West Europe",
+    "type": "Region"
+  }
+]

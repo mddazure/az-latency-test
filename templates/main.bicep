@@ -22,6 +22,11 @@ param vnet1Subnet2Name string = 'subnet2'
 param vnet1Subnet2Range string = '172.16.2.0/24'
 param vnet1Subnet3Name string = 'subnet3'
 param vnet1Subnet3Range string = '172.16.3.0/24'
+
+param vm1IP string = '172.16.1.4'
+param vm2IP string = '172.16.2.4'
+param vm3IP string = '172.16.3.4'
+
 var vnet1Id = vnet1.outputs.vnetid
 var vnet1Subnet1id = vnet1.outputs.subnet1id
 var vnet1Subnet2id = vnet1.outputs.subnet2id
@@ -51,6 +56,7 @@ var vm3id = vm3.outputs.vmid
 param vm1Name string = 'vm1'
 param vm2Name string = 'vm2'
 param vm3Name string = 'vm3'
+
 
 targetScope = 'subscription'
 
@@ -117,6 +123,7 @@ module vm1 'vm.bicep' = {
   params: {
     location: location
     vmName: vm1Name
+    ip: vm1IP
     adminUser: adminUsername
     adminPw: adminPassword
     subnetId: vnet1Subnet1id
@@ -140,6 +147,7 @@ module vm2 'vm.bicep' = {
   params: {
     location: location
     vmName: vm2Name
+    ip: vm2IP
     adminUser: adminUsername
     adminPw: adminPassword
     subnetId: vnet1Subnet2id
@@ -164,6 +172,7 @@ module vm3 'vm.bicep' = {
   params: {
     location: location
     vmName: vm3Name
+    ip: vm3IP
     adminUser: adminUsername
     adminPw: adminPassword
     subnetId: vnet1Subnet3id

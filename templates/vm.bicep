@@ -1,4 +1,5 @@
 param vmName string
+param ip string
 param adminUser string
 @secure()
 param adminPw string
@@ -14,6 +15,7 @@ resource nicPubIP 'Microsoft.Network/networkInterfaces@2020-08-01' = {
   name: '${vmName}-nic'
   location: location
   properties:{
+    enableAcceleratedNetworking: true
     ipConfigurations: [
       {
         name: 'ipv4config0'
@@ -21,6 +23,7 @@ resource nicPubIP 'Microsoft.Network/networkInterfaces@2020-08-01' = {
           primary: true
           privateIPAllocationMethod: 'Dynamic'
           privateIPAddressVersion: 'IPv4'
+          privateIPAddress: ip
           subnet: {
             id: subnetId
           }
