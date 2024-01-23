@@ -163,7 +163,7 @@ Clone the  GitHub repository:
 
 Change directory:
   
-      cd ./az-latency-test/templates
+      cd ./az-latency-test
 
 Deploy the Bicep template:
 
@@ -172,4 +172,16 @@ Deploy the Bicep template:
 Verify that all components in the diagram above have been deployed to the resourcegroup `az-latency` and are healthy. 
 
 ### Observe
+In the Azure portal, type Network Watcher in the top search bar. 
+
+Under the the instance named `conmon-az-latency`, click the carret (>) next to each source to expand details of the tests running from each source. The Connection Monitor is configured with both a TCP- and an HTTP-test. The TCP test provides most accurate network latency information.
+
+![image](images/conmon-az-latency.png)
+
+Now click the instance named `conmon-az-latency`, then scroll down to Test Configurations and click the test named `tcp-test_networkTestConfig`.
+
+![image](images/az-latency-test-results.png)
+
+This shows the TCP network latency between each pair of VMs, which provides an indication of which VMs (and this AZ's) are closest together.
+
 
