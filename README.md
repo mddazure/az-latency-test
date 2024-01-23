@@ -35,7 +35,7 @@ As one of Azure West Europe's physical Availability Zones is close to the Amster
 Building the solution involved of these steps:
 
 - Pin the deployment of the HPC compute clusters to the physical AZ located at Schiphol-Rijk.
-- Rackspace to host the Powerscale F900 storage platform in the Interxion AMS8 data center, where the Expressroute Amsterdam2 Expressroute peering node is located.
+- Rackspace to host the Powerscale F900 storage platform in the Interxion AMS8 data center, where the Amsterdam2 Expressroute peering node is located.
 - Connect the storage platform to a 100Gbps Expressroute Direct port.
 - Enable Fastpath, removing the Expressroute Gateway from the data path making the full ER Direct bandwdith available between the compute nodes in Azure and the Powerscale storage platform.
 
