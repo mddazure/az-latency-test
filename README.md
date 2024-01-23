@@ -2,7 +2,7 @@
 
 ## The Problem
 
-A customer in the oil and gas industry wanted to run geoscience applications on Azure HPC, while retaining data on a Dell Powerscale F900 storage platform hosted by Rackspace, under their Data Freedom offering. Bandwidth required between application and storage was 100Gbps and round trip delay had to be less than 1 ms. 
+A customer in the oil and gas industry wanted to run geoscience applications on Azure HPC while retaining data on a Dell Powerscale F900 storage platform hosted by Rackspace, under their Data Freedom offering. Bandwidth required between application and storage was 100Gbps and round trip delay had to be less than 1 ms. 
 
 ![image](images/apparch.png)
 
@@ -12,9 +12,13 @@ Distributing an application and its associated storage across hosting platforms 
 
 Azure regions are generally hosted in Microsoft-owned datacenters, which are not accessible to third parties to host their services. The nearest a third party can usually get to Azure, are the non-Microsoft hosting centers where the WAN Edge and Expressroute peering nodes are hosted. These nodes are connected to their nearest Azure region via the Microsoft Wide Area Network. Although these are high performance connections, latency between an edge node and the nearest Azure region can still exceed 2 ms.
 
-Azure regions usually consist of multiple datacenters located fairly closely together. These are grouped into Availability Zones: fault-isolated locations within an Azure region that provide redundant power, cooling, and networking. Azure regions that support Availability Zones have a minimum of three separate zones. Each availability zone consists of one or more data centers equipped with independent infrastructure power, network, and cooling. Availability zones are connected by a high-performance network with a round-trip latency of less than 2 milliseconds.
+Azure regions usually consist of multiple datacenters located fairly closely together. These are grouped into Availability Zones: fault-isolated locations within an Azure region that provide redundant power, cooling, and networking. Azure regions that support Availability Zones have a minimum of three separate zones. Each availability zone consists of one or more data centers equipped with independent infrastructure for power, network, and cooling. 
 
 ![image](images/edge-region.png)
+
+Availability zones are connected by a high-performance network. Latency between AZ's in a region is 2 ms maximum. Latency between VMs in different DC's within an AZ is less than 1 ms. Latency between VMs within a single DC can be significantly lower, depending on the use of specific features such as Proximity Placement Groups.
+
+![image](images/azs.png)
 
 The Azure West Europe region in the Netherlands is a bit different from many other regions: it is distributed over Microsoft's own datacenter campus in Middenmeer, north of Amsterdam, and the Digital Realty / Interxion data centers in Schiphol-Rijk. Two of the region's Availability Zones are in Middenmeer, a third is in Schiphol-Rijk. Distance between these location is about 55 km, and latency between the AZ's in Middenmeer and the one in Schiphol-Rijk is just within the 2 ms envelope.
 
@@ -26,14 +30,14 @@ One of the Expressroute nodes in Amsterdam is also hosted with Interxion at Schi
 
 ## The Solution
 
-Because one of the West Europe region's physical Availability Zones is close to the Amsterdam2 Expressroute peering node, which has high bandwidth Expressroute Direct service, and third party hosting space from Interxion is available in the same data center, a solution presented itself. The physical layout of Azure West Europe made it possible to host the HPC compute clusters in Azure physically very close to the storage platform, with low latency high bandwith connectivity between the two.
+As one of Azure West Europe's physical Availability Zones is close to the Amsterdam2 Expressroute peering node, and third party hosting space from Interxion is available in the same data center, a solution presented itself. The physical layout of Azure West Europe made it possible to host the HPC compute clusters in Azure physically very close to the storage platform, with low latency, high bandwith connectivity between the two.
 
 Building the solution involved of these steps:
 
 - Pin the deployment of the HPC compute clusters to the physical AZ located at Schiphol-Rijk.
 - Rackspace to host the Powerscale F900 storage platform in the Interxion AMS8 data center, where the Expressroute Amsterdam2 Expressroute peering node is located.
 - Connect the storage platform to a 100Gbps Expressroute Direct port.
-- Enable Fastpath, removing the ExpressRoute Gateway from the data path to make the full ER Direct bandwdith available between the compute nodes in Azure and the storage platform.
+- Enable Fastpath, removing the Expressroute Gateway from the data path making the full ER Direct bandwdith available between the compute nodes in Azure and the Powerscale storage platform.
 
 ![image](images/arch.png)
 
@@ -139,3 +143,33 @@ Rackspace hosted their storage solution in Interxion AMS8 and connected it to th
 Testing confirmed latency between application and storage was well within the 1ms envelope.
 
 ## Lab
+A simple lab was used to measure latency between Availability Zones. This deploys VMs in each of the subscription's logical AZ's. It then sets up Network Watcher [Connection Monitor](https://learn.microsoft.com/en-us/azure/network-watcher/connection-monitor-overview) to continuously measure and report latency between the VMs.
+
+![image](images/az-latency-test-lab.png)
+
+### Deploy
+Log in to Azure Cloud Shell at https://shell.azure.com/ and select Bash.
+
+Ensure Azure CLI and extensions are up to date:
+  
+      az upgrade --yes
+  
+If necessary select your target subscription:
+  
+      az account set --subscription <Name or ID of subscription>
+  
+Clone the  GitHub repository: 
+      git clone https://github.com/mddazure/az-latency-test
+
+Change directory:
+  
+      cd ./az-latency-test/templates
+
+Deploy the Bicep template:
+
+      az deployment sub create --location westeurope --template-file templates/main.bicep
+
+Verify that all components in the diagram above have been deployed to the resourcegroup `az-latency` and are healthy. 
+
+### Observe
+
