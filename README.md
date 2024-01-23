@@ -1,4 +1,4 @@
-# Hybrid Connectivity at very high bandwidth and low latency
+# Hybrid Connectivity at high bandwidth and low latency
 
 ## The Problem
 
