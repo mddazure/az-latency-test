@@ -2,7 +2,7 @@ param rgName string = 'az-latency-mr'
 //param rgName string = 'az-latency-2'
 param watcherRG string = 'NetworkWatcherRG'
 param location string = 'germanywestcentral'
-param location2 string ='japanwest'
+param location2 string ='koreacentral'
 param location3 string = 'japaneast'
 
 param bastionVnetName string = 'bastionvnet'
@@ -319,7 +319,7 @@ module peer3b 'vnetpeering.bicep' ={
   params: {
     vnet2Name: vnet3Name
     vnet1Name: bastionVnetName
-    vnet2id: vnet2Id
+    vnet2id: vnet3Id
     vnet1id: bastionVnetId
   }
 }
