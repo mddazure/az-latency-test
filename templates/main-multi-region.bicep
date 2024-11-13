@@ -235,6 +235,96 @@ module bastion 'bastion.bicep' = {
   }
 }
 
+module peer12 'vnetpeering.bicep' ={
+  scope: azrg
+  name: 'peer12'
+  dependsOn: [
+    bastionvnet
+    vnet1
+  ]
+  params: {
+    vnet1Name: vnet1Name
+    vnet2Name: vnet2Name
+    vnet1id: vnet1Id
+    vnet2id: vnet2Id
+  }
+}
+
+module peer21 'vnetpeering.bicep' ={
+  scope: azrg
+  name: 'peer21'
+  dependsOn: [
+    bastionvnet
+    vnet1
+  ]
+  params: {
+    vnet2Name: vnet1Name
+    vnet1Name: vnet2Name
+    vnet2id: vnet1Id
+    vnet1id: vnet2Id
+  }
+}
+
+module peer13 'vnetpeering.bicep' ={
+  scope: azrg
+  name: 'peer13'
+  dependsOn: [
+    bastionvnet
+    vnet1
+  ]
+  params: {
+    vnet1Name: vnet1Name
+    vnet2Name: vnet3Name
+    vnet1id: vnet1Id
+    vnet2id: vnet3Id
+  }
+}
+
+module peer31 'vnetpeering.bicep' ={
+  scope: azrg
+  name: 'peer31'
+  dependsOn: [
+    bastionvnet
+    vnet1
+  ]
+  params: {
+    vnet2Name: vnet1Name
+    vnet1Name: vnet3Name
+    vnet2id: vnet1Id
+    vnet1id: vnet3Id
+  }
+}
+
+module peer23 'vnetpeering.bicep' ={
+  scope: azrg
+  name: 'peer23'
+  dependsOn: [
+    bastionvnet
+    vnet1
+  ]
+  params: {
+    vnet1Name: vnet2Name
+    vnet2Name: vnet3Name
+    vnet1id: vnet2Id
+    vnet2id: vnet3Id
+  }
+}
+
+module peer32 'vnetpeering.bicep' ={
+  scope: azrg
+  name: 'peer32'
+  dependsOn: [
+    bastionvnet
+    vnet1
+  ]
+  params: {
+    vnet2Name: vnet2Name
+    vnet1Name: vnet3Name
+    vnet2id: vnet2Id
+    vnet1id: vnet3Id
+  }
+}
+
 
 module peerb1 'vnetpeering.bicep' ={
   scope: azrg
