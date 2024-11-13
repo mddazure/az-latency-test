@@ -6,13 +6,13 @@ param location2 string ='koreacentral'
 param location3 string = 'japaneast'
 
 param bastionVnetName string = 'bastionvnet'
-param bastionVnetRange string = '172.18.0.0/16'
+param bastionVnetRange string = '172.20.0.0/16'
 param bastionSubnetName string = 'AzureBastionSubnet'
-param bastionSubnetRange string = '172.18.100.0/24'
+param bastionSubnetRange string = '172.20.100.0/24'
 param bastionSubnet2Name string = 'subnet2'
-param bastionSubnet2Range string = '172.18.101.0/24'
+param bastionSubnet2Range string = '172.20.101.0/24'
 param bastionSubnet3Name string = 'subnet3'
-param bastionSubnet3Range string = '172.18.102.0/24'
+param bastionSubnet3Range string = '172.20.102.0/24'
 var bastionVnetId = bastionvnet.outputs.vnetid
 var bastionSubnetid = bastionvnet.outputs.subnet1id
 
