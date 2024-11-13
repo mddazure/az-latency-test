@@ -76,7 +76,7 @@ resource conmon 'Microsoft.Network/networkWatchers/connectionMonitors@2022-07-01
           vm3name
         ]
       }
-      {
+      /*{
         name: 'source2'
         disable: false
         testConfigurations:[
@@ -105,7 +105,7 @@ resource conmon 'Microsoft.Network/networkWatchers/connectionMonitors@2022-07-01
           vm1name
           vm2name
         ]
-      }
+      }*/
     ]
   }
 }  
