@@ -1,7 +1,7 @@
 param rgName string = 'az-latency-mr'
 //param rgName string = 'az-latency-2'
 param watcherRG string = 'NetworkWatcherRG'
-param location string = 'germanywestecentral'
+param location string = 'germanywestcentral'
 param location2 string ='japanwest'
 param location3 string = 'japaneast'
 
