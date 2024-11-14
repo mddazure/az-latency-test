@@ -59,6 +59,15 @@ resource conmon 'Microsoft.Network/networkWatchers/connectionMonitors@2022-07-01
         }
         successThreshold:{}
       }
+      {
+        name: 'icmp-test'
+        testFrequencySec: 30
+        protocol: 'Icmp'
+        icmpConfiguration: {
+          disableTraceRoute: false
+        }
+        successThreshold:{}
+      }
     ]
     testGroups: [
       {
