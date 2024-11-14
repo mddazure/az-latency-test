@@ -76,6 +76,7 @@ resource conmon 'Microsoft.Network/networkWatchers/connectionMonitors@2022-07-01
         testConfigurations:[
           'tcp-test_networkTestConfig'
           'http-test'
+          'icmp-test'
         ]
         sources:[
           vm1name
